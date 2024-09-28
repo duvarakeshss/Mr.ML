@@ -12,7 +12,7 @@ if module_path not in sys.path:
 from LinearRegression import LinearRegressionModel
 
 def main():
-    st.title("Linear Regression Model ")
+    st.title("Linear Regression Model")
 
     # Step 1: File upload
     uploaded_file = st.file_uploader("Upload a CSV file", type=["csv"])
@@ -46,6 +46,24 @@ def main():
             # Plot the regression line
             st.write("### Regression Plot")
             st.pyplot(model.fig)
+
+            # Store the model in session state
+            st.session_state['model'] = model
+
+    # Step 6: Predict values using the trained model (only if a model is available)
+    if 'model' in st.session_state:
+        model = st.session_state['model']
+        
+        st.write("### Make Predictions")
+        input_value = st.number_input(f"Enter a value for {feature}:")
+        
+        if st.button("Predict"):
+            predicted_value = model.m * input_value + model.b
+            st.session_state['predicted_value'] = predicted_value
+
+    # Display the prediction result if available
+    if 'predicted_value' in st.session_state:
+        st.write(f"Predicted value for {label}: {st.session_state['predicted_value']:.4f}")
 
 if __name__ == "__main__":
     main()
