@@ -3,12 +3,11 @@ import pandas as pd
 import sys
 import os
 
-# Adjusting system path to ensure the module can be imported
-module_path = os.path.abspath('D:/Repos/Mr.ML/Regression')  # Correct absolute path to Regression folder
+module_path = os.path.abspath('D:/Repos/Mr.ML/Regression')  
 if module_path not in sys.path:
     sys.path.append(module_path)
 
-# Import the LinearRegressionModel after adjusting the path
+# Import the LinearRegressionModel
 from LinearRegression import LinearRegressionModel
 
 def main():
