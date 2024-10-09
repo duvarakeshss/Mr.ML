@@ -1,6 +1,7 @@
 {
     "python.analysis.extraPaths": [
         "./Regression",
-        "./Classification"
+        "./Classification",
+        "./Clustering"
     ]
 }
