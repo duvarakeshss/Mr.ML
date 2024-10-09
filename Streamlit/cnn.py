@@ -14,8 +14,7 @@ if module_path not in sys.path:
 # Import the CNN class
 from Cnn import CNN
 
-# Set page layout to wide
-st.set_page_config(layout="wide")
+
 
 def main():
     st.title("CNN Model for Regression")
@@ -92,32 +91,32 @@ def main():
                     except Exception as e:
                         st.error(f"Error during training: {e}")
 
-    # Step 6: Predict values using the trained model (only if a model is available)
-    if 'cnn' in st.session_state:
-        cnn = st.session_state['cnn']
-        scaler_y = st.session_state['scaler_y']  # Get the scaler
+        # Step 6: Predict values using the trained model (only if a model is available)
+        if 'cnn' in st.session_state:
+            cnn = st.session_state['cnn']
+            scaler_y = st.session_state['scaler_y']  # Get the scaler
 
-        st.sidebar.subheader("Make Predictions")
-        input_values = [st.sidebar.number_input(f"Enter a value for {col}:", value=0.0) for col in feature_columns]
-        input_values = np.array(input_values).reshape(-1, len(feature_columns), 1)
+            st.sidebar.subheader("Make Predictions")
+            input_values = [st.sidebar.number_input(f"Enter a value for {col}:", value=0.0) for col in feature_columns]
+            input_values = np.array(input_values).reshape(-1, len(feature_columns), 1)
 
-        if st.sidebar.button("Predict"):
-            try:
-                # Make predictions using the trained CNN model
-                predicted_value_scaled = cnn.predict(input_values)
+            if st.sidebar.button("Predict"):
+                try:
+                    # Make predictions using the trained CNN model
+                    predicted_value_scaled = cnn.predict(input_values)
 
-                # Inverse transform the prediction
-                predicted_value = scaler_y.inverse_transform(predicted_value_scaled)
-                
-                st.session_state['predicted_value'] = predicted_value
-                st.success(f"Predicted value for {label_column}: **{predicted_value[0][0]:.4f}**")
-            except Exception as e:
-                st.error(f"Error during prediction: {e}")
+                    # Inverse transform the prediction
+                    predicted_value = scaler_y.inverse_transform(predicted_value_scaled)
+                    
+                    st.session_state['predicted_value'] = predicted_value
+                    st.success(f"Predicted value for {label_column}: **{predicted_value[0][0]:.4f}**")
+                except Exception as e:
+                    st.error(f"Error during prediction: {e}")
 
-    # Display the prediction result if available
-    if 'predicted_value' in st.session_state:
-        st.subheader("Prediction Result")
-        st.write(f"Predicted value for {label_column}: **{st.session_state['predicted_value'][0][0]:.4f}**")
+        # Display the prediction result if available
+        if 'predicted_value' in st.session_state:
+            st.subheader("Prediction Result")
+            st.write(f"Predicted value for {label_column}: **{st.session_state['predicted_value'][0][0]:.4f}**")
 
-if __name__ == "__main__":
-    main()
+# if __name__ == "__main__":
+#     main()

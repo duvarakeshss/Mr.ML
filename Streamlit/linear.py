@@ -10,9 +10,6 @@ if module_path not in sys.path:
 # Import the LinearRegressionModel
 from LinearRegression import LinearRegressionModel
 
-# Set page layout
-st.set_page_config(layout="wide")
-
 def main():
     st.title("Linear Regression Model")
 
@@ -73,5 +70,5 @@ def main():
         st.subheader("Prediction Result")
         st.write(f"Predicted value for {label}: **{st.session_state['predicted_value']:.4f}**")
 
-if __name__ == "__main__":
-    main()
+# if __name__ == "__main__":
+#     main()

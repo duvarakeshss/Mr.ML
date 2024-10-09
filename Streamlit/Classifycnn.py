@@ -57,6 +57,9 @@ class DigitClassifierApp:
             # Display the prediction
             st.write(f'Predicted Digit: {predicted_digit}')
 
+def run():
+    app = DigitClassifierApp()
+    app.run()
 # Run the app
 if __name__ == "__main__":
     app = DigitClassifierApp()

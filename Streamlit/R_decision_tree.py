@@ -8,10 +8,12 @@ import sys
 module_path = os.path.abspath('D:/Repos/Mr.ML/Regression')  
 if module_path not in sys.path:
     sys.path.append(module_path)
+
 from decision_tree import DecisionTreeModel
 from sklearn import tree
 
-st.markdown("""
+def main():
+    st.markdown("""
     <style>
     .main-title {
         color: #00607a;
@@ -43,50 +45,53 @@ st.markdown("""
         color: white;
     }
     </style>
-""", unsafe_allow_html=True)
+    """, unsafe_allow_html=True)
 
-st.markdown('<h1 class="main-title">Decision Tree Regressor with Feature Adjustment</h1>', unsafe_allow_html=True)
+    st.markdown('<h1 class="main-title">Decision Tree Regressor with Feature Adjustment</h1>', unsafe_allow_html=True)
 
-st.sidebar.header("Upload your CSV file")
-uploaded_file = st.sidebar.file_uploader("Upload CSV", type=["csv"])
+    st.sidebar.header("Upload your CSV file")
+    uploaded_file = st.sidebar.file_uploader("Upload CSV", type=["csv"])
 
-if uploaded_file is not None:
-    data = pd.read_csv(uploaded_file)
-    st.write("Dataset Preview:")
-    st.dataframe(data.head())
+    if uploaded_file is not None:
+        data = pd.read_csv(uploaded_file)
+        st.write("Dataset Preview:")
+        st.dataframe(data.head())
+        
+        dt_model = DecisionTreeModel()
+        data = dt_model.encode_labels(data)
+
+        st.sidebar.header("Select Features and Target")
+        
+        target_variable = st.sidebar.selectbox('Select Target Variable:', data.columns)
+        
+        features = st.sidebar.multiselect('Select Features:', data.columns.difference([target_variable]))
+
+        if features and target_variable:
+            X = data[features]
+            y = data[target_variable]
+
+            st.sidebar.header("Adjust Feature Values")
+            for feature in features:
+                min_value = float(data[feature].min())
+                max_value = float(data[feature].max())
+                step = (max_value - min_value) / 100
+                value = st.sidebar.slider(f'Adjust {feature}', min_value, max_value, (min_value + max_value) / 2, step)
+
+            if st.sidebar.button("Train Decision Tree"):
+                y_test, y_pred = dt_model.train(X, y)
+
+                mae, mse, r2 = dt_model.evaluate(y_test, y_pred)
+
+                st.markdown('<h2 class="section-title">Model Performance Metrics</h2>', unsafe_allow_html=True)
+                st.write(f"**Mean Absolute Error (MAE)**: {mae:.2f}")
+                st.write(f"**Mean Squared Error (MSE)**: {mse:.2f}")
+                st.write(f"**R² Score**: {r2:.2f}")
+
+                st.markdown('<h2 class="section-title">Decision Tree Visualization</h2>', unsafe_allow_html=True)
+                fig = plt.figure(figsize=(20, 20))  
+                tree.plot_tree(dt_model.get_tree(), feature_names=features, filled=True, rounded=True, fontsize=10)
+                plt.title("Decision Tree Regressor", fontsize=16)
+                st.pyplot(fig)
+# if __name__ == main:
+#     main()
     
-    dt_model = DecisionTreeModel()
-    data = dt_model.encode_labels(data)
-
-    st.sidebar.header("Select Features and Target")
-    
-    target_variable = st.sidebar.selectbox('Select Target Variable:', data.columns)
-    
-    features = st.sidebar.multiselect('Select Features:', data.columns.difference([target_variable]))
-
-    if features and target_variable:
-        X = data[features]
-        y = data[target_variable]
-
-        st.sidebar.header("Adjust Feature Values")
-        for feature in features:
-            min_value = float(data[feature].min())
-            max_value = float(data[feature].max())
-            step = (max_value - min_value) / 100
-            value = st.sidebar.slider(f'Adjust {feature}', min_value, max_value, (min_value + max_value) / 2, step)
-
-        if st.sidebar.button("Train Decision Tree"):
-            y_test, y_pred = dt_model.train(X, y)
-
-            mae, mse, r2 = dt_model.evaluate(y_test, y_pred)
-
-            st.markdown('<h2 class="section-title">Model Performance Metrics</h2>', unsafe_allow_html=True)
-            st.write(f"**Mean Absolute Error (MAE)**: {mae:.2f}")
-            st.write(f"**Mean Squared Error (MSE)**: {mse:.2f}")
-            st.write(f"**R² Score**: {r2:.2f}")
-
-            st.markdown('<h2 class="section-title">Decision Tree Visualization</h2>', unsafe_allow_html=True)
-            fig = plt.figure(figsize=(20, 20))  
-            tree.plot_tree(dt_model.get_tree(), feature_names=features, filled=True, rounded=True, fontsize=10)
-            plt.title("Decision Tree Regressor", fontsize=16)
-            st.pyplot(fig)
