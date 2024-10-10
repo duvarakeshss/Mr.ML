@@ -7,7 +7,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import MinMaxScaler
 
 # Adding the path for the custom CNN model
-module_path = os.path.abspath('D:/Repos/Mr.ML/Regression')  
+module_path = os.path.abspath('/workspaces/Mr.ML/Regression')  
 if module_path not in sys.path:
     sys.path.append(module_path)
 

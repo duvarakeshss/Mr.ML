@@ -6,7 +6,7 @@ import os
 import sys
 from sklearn import tree
 
-module_path = os.path.abspath('D:/Repos/Mr.ML/Classification')  
+module_path = os.path.abspath('/workspaces/Mr.ML/Classification')  
 if module_path not in sys.path:
     sys.path.append(module_path)
 from decision_tree import DecisionTreeModel
