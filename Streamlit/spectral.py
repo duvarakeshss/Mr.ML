@@ -1,4 +1,4 @@
-# streamlit_gmm_clustering.py
+# streamlit_spectral_clustering.py
 
 import streamlit as st
 import pandas as pd
@@ -11,10 +11,10 @@ module_path = os.path.abspath('D:/Repos/Mr.ML/Clustering')
 if module_path not in sys.path:
     sys.path.append(module_path)
 
-from GMM import GMMClusteringModel
+from Spectral import SpectralClusteringModel
 
 def main():
-    st.title("Gaussian Mixture Model")
+    st.title("Spectral Clustering")
 
     # Sidebar for configuration
     st.sidebar.header("Upload Data and Set Parameters")
@@ -44,10 +44,10 @@ def main():
             # Step 6: Prepare data for clustering
             X = data[feature_columns].values
 
-            # Step 7: Run Clustering Algorithm (GMM)
-            model = GMMClusteringModel(n_clusters=n_clusters)
+            # Step 7: Run Clustering Algorithm (Spectral Clustering)
+            model = SpectralClusteringModel(n_clusters=n_clusters)
 
-            if st.sidebar.button("Run GMM Clustering"):
+            if st.sidebar.button("Run Spectral Clustering"):
                 try:
                     model.fit(X)
                     cluster_labels = model.predict(X)
@@ -81,7 +81,7 @@ def main():
                     st.error(f"Error during clustering: {e}")
 
             # Step 9: Prediction
-            if st.sidebar.checkbox("Predict new data with GMM"):
+            if st.sidebar.checkbox("Predict new data with Spectral Clustering"):
                 st.sidebar.subheader("Enter New Data for Prediction")
                 new_data = [st.sidebar.number_input(f"Enter a value for {col}:", value=0.0) for col in feature_columns]
                 new_data = np.array(new_data).reshape(1, -1)

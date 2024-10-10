@@ -51,8 +51,16 @@ elif model_type == "Classification":
     
 elif model_type == "Clustering":
     st.title("Clustering Models")
-    clustering_option = st.selectbox("Select Clustering Model:", ("K-Means"))
+    clustering_option = st.selectbox("Select Clustering Model:", ("K-Means","GMM","Spectral"))
     
     if clustering_option == "K-Means":
         from K_means import main
         main()
+    if clustering_option == "GMM":
+        from gmm import main
+        main()
+        
+    if clustering_option == "Spectral":
+        from spectral import main
+        main()
+        
