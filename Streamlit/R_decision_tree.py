@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 import os
 import sys
 
-module_path = os.path.abspath('/workspaces/Mr.ML/Regression')  
+module_path = os.path.abspath('D:/Repos/Mr.ML/Regression')  
 if module_path not in sys.path:
     sys.path.append(module_path)
 

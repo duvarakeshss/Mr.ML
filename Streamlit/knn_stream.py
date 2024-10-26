@@ -3,7 +3,7 @@ import pandas as pd
 import sys
 import os
 
-module_path = os.path.abspath('/workspaces/Mr.ML/Classification')  
+module_path = os.path.abspath('D:/Repos/Mr.ML/Classification')  
 if module_path not in sys.path:
     sys.path.append(module_path)
 from knn import Knn_Classification

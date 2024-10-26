@@ -6,7 +6,7 @@ import sys
 import os
 
 # Adding the path for the custom Logistic Regression model
-module_path = os.path.abspath('/workspaces/Mr.ML/Classification')  
+module_path = os.path.abspath('D:/Repos/Mr.ML/Classification')  
 if module_path not in sys.path:
     sys.path.append(module_path)
 
