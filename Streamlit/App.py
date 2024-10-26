@@ -1,8 +1,10 @@
 import streamlit as st
 
 # Set page layout
-st.set_page_config(layout="wide")
-
+col1, col2 = st.columns([1, 4])
+with col1:
+    st.image(r"D:\Repos\Mr.ML\assets\ml.webp", width=50)
+  
 # Sidebar options
 st.sidebar.title("Select Model")
 model_type = st.sidebar.radio("Choose a model type:", ("Regression", "Classification", "Clustering"))
