@@ -7,7 +7,7 @@ with col1:
   
 # Sidebar options
 st.sidebar.title("Select Model")
-model_type = st.sidebar.radio("Choose a model type:", ("Regression", "Classification", "Clustering"))
+model_type = st.sidebar.radio("Choose a model type:", ("Regression", "Classification", "Clustering","Tuberculosis"))
 
 
 if model_type == "Regression":
@@ -65,4 +65,6 @@ elif model_type == "Clustering":
     if clustering_option == "Spectral":
         from spectral import main
         main()
-        
+elif model_type == "Tuberculosis":
+    from Predict import main
+    main()
