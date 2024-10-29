@@ -6,12 +6,14 @@ import matplotlib.pyplot as plt
 import os
 import sys
 
+# Set up module path for KMeans class import
 module_path = os.path.abspath('D:/Repos/Mr.ML/Clustering')  
 if module_path not in sys.path:
     sys.path.append(module_path)
 from kmeans import KMeans
 
 def main():
+    # Streamlit app title and styling
     st.markdown("""
     <style>
     .main-title {
@@ -41,7 +43,7 @@ def main():
 
         # Input for number of clusters
         k = st.number_input("Number of clusters (k):", min_value=1, max_value=10, value=3)
-        
+
         if st.button("Run K-Means"):
             kmeans = KMeans(k)
             centroids, clusters = kmeans.fit(data)
@@ -68,4 +70,9 @@ def main():
             plt.xlabel("Feature 1")
             plt.ylabel("Feature 2")
             plt.legend()
+
+            # Show the plot in Streamlit
             st.pyplot(plt)
+
+            # Clear the figure to prevent overlap in subsequent runs
+            plt.clf()

@@ -12,7 +12,7 @@ model_type = st.sidebar.radio("Choose a model type:", ("Regression", "Classifica
 
 if model_type == "Regression":
     st.title("Regression Models")
-    regression_option = st.selectbox("Select Regression Model:", ("Linear Regression", "Multiple Regression", "Decision Tree Regression", "CNN"))
+    regression_option = st.selectbox("Select Regression Model:", ("Linear Regression", "Multiple Regression", "Decision Tree Regression"))
     
     if regression_option == "Linear Regression":
 
@@ -27,9 +27,7 @@ if model_type == "Regression":
         from R_decision_tree import main
         main()
 
-    elif regression_option == "CNN":
-        from cnn import main
-        main()
+
 
 elif model_type == "Classification":
     st.title("Classification Models")

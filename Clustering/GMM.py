@@ -2,7 +2,7 @@
 
 from sklearn.mixture import GaussianMixture
 from sklearn.preprocessing import StandardScaler
-from sklearn.metrics import silhouette_score, davies_bouldin_score, calinski_harabasz_score
+from sklearn.metrics import silhouette_score
 
 class GMMClusteringModel:
     def __init__(self, n_clusters=3):
@@ -25,10 +25,6 @@ class GMMClusteringModel:
     def get_metrics(self, X, labels):
         X_scaled = self.scaler.transform(X)
         metrics = {
-            'Silhouette Score': silhouette_score(X_scaled, labels),
-            'Davies-Bouldin Index': davies_bouldin_score(X_scaled, labels),
-            'Calinski-Harabasz Index': calinski_harabasz_score(X_scaled, labels)
+            'Silhouette Score': silhouette_score(X_scaled, labels)
         }
         return metrics
-
-
